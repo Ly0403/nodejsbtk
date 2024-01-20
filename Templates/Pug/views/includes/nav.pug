@@ -1,0 +1,7 @@
+nav.navbar.navbar-dark.bg-dark
+      .container
+        a.navbar-brand.btn.btn-outline-danger(href="/") Shopping
+        .px-3.mx-2
+          a(href="/user" class = (path == 'user' ? "btn btn-outline-danger mx-4 active" : "btn btn-outline-danger mx-4")) Register
+          a(href="/product" class = (path == 'product' ? "btn btn-outline-primary mx-4 active" : "btn btn-outline-primary mx-4" )) Login
+          a(href="/product" class = (path == 'product' ? "btn btn-outline-secondary mx-4 active" : "btn btn-outline-secondary mx-4" )) Add Product

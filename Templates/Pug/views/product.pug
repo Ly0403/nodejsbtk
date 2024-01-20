@@ -1,0 +1,19 @@
+extends layouts/main
+
+block contents
+        .col-8.mx-2.my-4
+          form(action="/product/add" method="POST")
+            .form-group.row.mb-3
+              label.col-sm-2.col-form-label(for="name") Name
+              .col-sm-10
+                input#name.form-control(type="text" name="name")
+            .form-group.row.mb-3
+              label.col-sm-2.col-form-label(for="image") Image
+              .col-sm-10
+                input#image.form-control(type="text" name="image")
+            .form-group.row.mb-3
+              label.col-sm-2.col-form-label(for="description") Description
+              .col-sm-10
+                input#description.form-control(type="text" name="description")
+            .form-group.row.mb-3
+                input.btn.btn-outline-danger(type="submit" value="Save")
