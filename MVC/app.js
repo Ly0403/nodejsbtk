@@ -7,7 +7,7 @@ const adminRoutes = require('./routes/admin');
 
 const app = express();
 
-app.listen(3000);
+app.listen(5002);
 // static files
 app.use(express.static(path.join(__dirname, 'public')));
 

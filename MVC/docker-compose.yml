@@ -1,0 +1,16 @@
+version: "3"
+
+services:
+  app02:
+    build: .
+    container_name: app02
+    restart: always
+    ports:
+    - 5002
+    networks:
+      - nginx
+
+networks:
+  nginx:
+    name: nginx
+    external: true
