@@ -1,0 +1,12 @@
+nav.navbar.navbar-dark.bg-dark
+      .container
+        a.navbar-brand.btn.btn-outline-danger(href="/") Shopping
+        .px-3.mx-2
+          a(href="/products" class = (path == '/products' ? "btn btn-outline-danger mx-1 active" : "btn btn-outline-danger mx-1")) Products 
+          a(href="/cart" class = (path == '/cart' ? "btn btn-outline-danger mx-1 active" : "btn btn-outline-danger mx-1")) Cart 
+          a(href="/orders" class = (path == '/orders' ? "btn btn-outline-danger mx-1 active" : "btn btn-outline-danger mx-1")) Orders 
+          a(href="/admin/products" class = (path == '/admin/products' ? "btn btn-outline-secondary mx-1 active" : "btn btn-outline-secondary mx-1" )) Admin Products 
+          a(href="/admin/addProduct" class = (path == '/admin/addProduct' ? "btn btn-outline-secondary mx-1 active" : "btn btn-outline-secondary mx-1" )) Add Product
+          a(href="/admin/addCategory" class = (path == '/admin/addCategory' ? "btn btn-outline-secondary mx-1 active" : "btn btn-outline-secondary mx-1" )) Add Category
+          a(href="/" class = (path == 'user' ? "btn btn-outline-danger mx-1 active" : "btn btn-outline-danger mx-1")) Register
+          a(href="/" class = (path == 'product' ? "btn btn-outline-primary mx-1 active" : "btn btn-outline-primary mx-1" )) Login

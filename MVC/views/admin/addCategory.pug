@@ -1,0 +1,40 @@
+extends ../layouts/main
+
+block contents
+    .container 
+      .row
+        .col-2 
+        .col-8.mx-3.my-4
+          if result === 'success'
+            p.alert.alert-success The new category was added!
+          if result === 'successDelete'
+            p.alert.alert-danger The category #{name} was deleted!
+          form(action="/admin/addCategory" method="POST")
+            .form-group.row.mb-3
+              label.col-sm-2.col-form-label(for="id") ID
+              .col-sm-10
+                input#categoryId.form-control(type="text" name="id")
+            .form-group.row.mb-3
+              label.col-sm-2.col-form-label(for="name") Name
+              .col-sm-10
+                input#name.form-control(type="text" name="name")
+            .form-group.row.mb-3.offset-sm-2
+                input.btn.btn-outline-danger(type="submit" value="Save")
+      .row
+        .col-2 
+        .col-8.mx-3.my-4 
+          table.table.table-borders 
+            thead 
+                tr 
+                  th ID 
+                  th NAME
+                  th
+            tbody 
+                if categories.length > 0
+                  each category in categories 
+                    tr  
+                      td #{category.id}
+                      td #{category.name}
+                      td 
+                        a.btn.btn-outline-primary(href="/admin/editCategory/"+category.id) Edit
+                        a.btn.btn-outline-danger.mx-2(href="/admin/deleteCategory?id="+category.id) Delete
