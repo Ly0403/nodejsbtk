@@ -1,0 +1,29 @@
+extends ../layouts/main
+
+block contents
+  .container 
+    .row 
+        .col-2
+        .col-8.mx-2.my-4
+          form(action="/admin/editProduct" method="POST")
+            .form-group.row.mb-3
+              .col-sm-10
+                input#productID.form-control(type="text" name="id" hidden value=`${product.id}`)
+            .form-group.row.mb-3
+              label.col-sm-2.col-form-label(for="name") Name
+              .col-sm-10
+                input#name.form-control(type="text" name="name" value=`${product.name}`)
+            .form-group.row.mb-3
+              label.col-sm-2.col-form-label(for="image") Image
+              .col-sm-10
+                input#image.form-control(type="text" name="image" value=`${product.image}`)
+            .form-group.row.mb-3
+              label.col-sm-2.col-form-label(for="CategoryID") CategoryID
+              .col-sm-10
+                input#categoryId.form-control(type="text" name="categoryId" value=`${product.categoryId}`)
+            .form-group.row.mb-3
+              label.col-sm-2.col-form-label(for="description") Description
+              .col-sm-10
+                input#description.form-control(type="text" name="description" value=`${product.description}`)
+            .form-group.row.mb-3
+                input.btn.btn-outline-danger(type="submit" value="Save")
