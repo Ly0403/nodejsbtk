@@ -1,0 +1,26 @@
+extends ../layouts/main.pug
+
+block contents
+  if orders.length > 0
+    each order in orders
+        table.table.table-bordered.mx-4.my-4.pr-4
+        thead 
+            tr
+            th Image
+            th Name
+            th Description
+            th CategoryID
+            th Quantity 
+        tbody
+            each product in orders.products
+            tr
+                td
+                img(src=`/img/${product.image}` width="80px" height="100px") 
+                td #{product.name} 
+                td #{product.description}
+                td #{product.categoryId}
+                td #{product.cartitems.quantity}
+
+  else 
+    h1 No Product
+

@@ -1,0 +1,12 @@
+extends ../layouts/main
+
+block contents
+  .row 
+    .col-md-2.mx-4.my-4
+      img.img-fluid(src=`/img/${product.image}`, alt="")
+    .col-md-8.pl-4.mx-4.my-4 
+      h1 #{product.name}
+      hr
+      p #{product.description}
+      hr
+      a.btn.btn-primary(href=`/addCart/${product.id}`) Add to Cart
