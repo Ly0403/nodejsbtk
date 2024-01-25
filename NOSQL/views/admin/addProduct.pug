@@ -1,0 +1,28 @@
+extends ../layouts/main
+
+block contents
+    .container 
+      .row
+        .col-2 
+        .col-8.mx-3.my-4
+          form(action="/admin/addProduct" method="POST")
+            .form-group.row.mb-3
+              label.col-sm-2.col-form-label(for="name") Name
+              .col-sm-10
+                input#name.form-control(type="text" name="name")
+            .form-group.row.mb-3
+              label.col-sm-2.col-form-label(for="image") Image
+              .col-sm-10
+                input#image.form-control(type="text" name="image")
+            .form-group.row.mb-3
+              label.col-sm-2.col-form-label(for="description") Description
+              .col-sm-10
+                input#description.form-control(type="text" name="description")
+            .form-group.row.mb-3
+              label.col-sm-2.col-form-label(for="CategoryID") Category
+              .col-sm-10
+                   each category in categories
+                       input.mx-3(type="checkbox" name="categoryIds" value=`${category._id}`)
+                       |  #{category.name}
+            .form-group.row.mb-3.offset-sm-2
+                input.btn.btn-outline-danger(type="submit" value="Save")

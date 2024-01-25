@@ -2,10 +2,9 @@ const Product = require("../models/product");
 const Category = require("../models/category");
 
 const getIndexPage = async (req, res, next) => {
-  const categories = await Category.findAll({attributes: ['id', 'name']});
+  const categories = await Category.findAll();
   const products = await Product
-      .findAll({
-        attributes: ['id', 'name', 'image', 'description', 'categoryId']} );
+      .findAll({});
   res.render("shop/index", {
     title: "Shopping",
     path: "/",
@@ -16,9 +15,8 @@ const getIndexPage = async (req, res, next) => {
 
 const getProductsPage = async (req, res, next) => {
   const products = await Product
-      .findAll({
-        attributes: ['id', 'name', 'image', 'description', 'categoryId']} );
-  const categories = await Category.findAll({attributes: ['id', 'name']});
+      .findAll({});
+  const categories = await Category.findAll();
   res.render("shop/products", {
     title: "Products",
     path: "/products",
@@ -28,7 +26,7 @@ const getProductsPage = async (req, res, next) => {
 };
 
 const getProductsPageByID = async (req, res, next) => {
-  const product = await Product.findOne({where: {id: req.params.id}} );
+  const product = await Product.findById(req.params.id);
   res.render("shop/productDetails", {
     title: product.name,
     path: "/products",
@@ -38,8 +36,7 @@ const getProductsPageByID = async (req, res, next) => {
 
 const getProductsPageByCategoryID = async (req, res, next) => {
   const categories = await Category.findAll();
-  let products = (categories.find((v)=>v.id==req.params.id));
-  products = await products.getProducts();
+  const products = await Product.findByCategoryId(req.params.id);
   res.render("shop/products", {
     title: "Products",
     path: "/products",
@@ -74,11 +71,10 @@ const getOrdersPage = async (req, res, next) => {
 };
 
 const getCartPage = async (req, res, next) => {
-  const cart = await req.user.getCart();
-  const products= await cart.getProducts();
-  const total =
-    products.reduce((sum, current) =>
-      ( sum + (current.cartitems.quantity * 8) ), 0);
+  const products = await req.user.getCart();
+  console.log(products);
+  let total = 0;
+  products.forEach((v)=> total += Number(v.quantity));
   const result = req.query.result;
   res.render("shop/cart", {
     title: "Carts",
@@ -90,25 +86,13 @@ const getCartPage = async (req, res, next) => {
 };
 
 const addCart = async (req, res, next) => {
-  const cart = await req.user.getCart();
-  const product = await Product.findByPk(Number(req.params.id));
-  let quantity = 1;
-  const productsInCart = await cart.getProducts();
-  productsInCart.forEach((v)=>v.id === product.id ?
-    quantity += v.cartitems.quantity:null );
-  await cart.addProduct(product, {
-    through: {
-      quantity: quantity,
-    },
-  });
+  await req.user.addCart(req.params.id);
   res.redirect("/cart?result=success");
 };
 
 
 const deleteCart = async (req, res, next) => {
-  const cart = await req.user.getCart();
-  const product = await cart.getProducts( {where: {id: req.query.id}});
-  await product[0].cartitems.destroy();
+  await req.user.deleteCart(req.query.id);
   res.redirect("/cart?result=delete");
 };
 
