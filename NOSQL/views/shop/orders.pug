@@ -9,7 +9,6 @@ block contents
                 th Image
                 th Name
                 th Description
-                th CategoryID
                 th Quantity 
             tbody
                 each product in order.products
@@ -18,8 +17,7 @@ block contents
                             img(src=`/img/${product.image}` width="80px" height="100px") 
                         td #{product.name} 
                         td #{product.description}
-                        td #{product.categoryId}
-                        td #{product.orderitems.quantity}
+                        td #{product.quantity}
 
   else 
     h1 No Product

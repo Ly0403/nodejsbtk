@@ -22,14 +22,14 @@ block contents
           table.table.table-borders 
             thead 
                 tr 
-                  th ID 
+                  th 
                   th NAME
                   th
             tbody 
                 if categories.length > 0
                   each category in categories 
                     tr  
-                      td #{category._id}
+                      td 
                       td #{category.name}
                       td 
                         a.btn.btn-outline-danger.mx-2(href="/admin/deleteCategory?id="+category._id) Delete

@@ -46,40 +46,16 @@ const getProductsPageByCategoryID = async (req, res, next) => {
   });
 };
 
-const getOrdersPage = async (req, res, next) => {
-  const user = req.user;
-  const cart = await user.getCart();
-  let currentProducts = await cart.getProducts();
-  if (currentProducts.length>0) {
-    currentProducts = currentProducts.map((v)=> {
-      v.orderitems = {
-        quantity: v.cartitems.quantity,
-        price: 222,
-      };
-      return v;
-    });
-    const order = await user.createOrder();
-    await order.addProducts(currentProducts);
-  }
-  cart.setProducts(null);
-  const orders = await user.getOrders({include: 'products'});
-  res.render("shop/orders", {
-    title: "Orders",
-    path: "/orders",
-    orders,
-  });
-};
 
 const getCartPage = async (req, res, next) => {
-  const products = await req.user.getCart();
-  console.log(products);
+  const cart = await req.user.getCart();
   let total = 0;
-  products.forEach((v)=> total += Number(v.quantity));
+  cart.items.forEach((v)=> total += Number(v.quantity*10));
   const result = req.query.result;
   res.render("shop/cart", {
     title: "Carts",
     path: "/cart",
-    products,
+    products: cart.items,
     result,
     total,
   });
@@ -97,12 +73,21 @@ const deleteCart = async (req, res, next) => {
 };
 
 
-const getCheckoutPage = async (req, res, next) => {
-  res.render("shop/checkout", {
-    title: "Checkout",
-    path: "/checkout",
+const getOrdersPage = async (req, res, next) => {
+  const user = req.user;
+  const orders = await user.getOrders();
+  res.render("shop/orders", {
+    title: "Orders",
+    path: "/orders",
+    orders,
   });
 };
+
+const createOrder = async (req, res, next) => {
+  await req.user.createOrder();
+  res.redirect("/orders");
+};
+
 
 module.exports = {
   getIndexPage,
@@ -110,7 +95,7 @@ module.exports = {
   addCart,
   deleteCart,
   getOrdersPage,
-  getCheckoutPage,
+  createOrder,
   getProductsPage,
   getProductsPageByID,
   getProductsPageByCategoryID,
