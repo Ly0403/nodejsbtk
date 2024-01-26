@@ -1,0 +1,17 @@
+extends ../layouts/main.pug
+
+include ../mixins/createProduct
+
+block contents
+     .row
+        .col-2.my-4.mx-2
+          include ../includes/menu 
+        .col-9.my-4
+          .row
+            if (products.length > 0)
+              each product in products
+                .col-4.ml-4.my-2
+                  +createProduct(product)
+            else
+              h1 No Product
+

@@ -1,0 +1,28 @@
+extends ../layouts/main.pug
+
+block contents
+  if action === 'edit'
+    div.alert.alert-success The product #{name} was updated!
+  if action === 'delete'
+    div.alert.alert-danger The product #{name} was deleted!
+  if products.length > 0
+    table.table.table-bordered.mx-4.my-4.pr-4
+      thead 
+        tr
+          th Image
+          th Name
+          th Description
+          th 
+      tbody
+        each product in products
+          tr
+            td
+              img(src=`/img/${product.image}` width="80px" height="100px") 
+            td #{product.name} 
+            td #{product.description}
+            td 
+              a.btn.btn-outline-primary.btn-sm.mx-2(href=`/admin/editProduct/${product._id}`) Edit
+              a.btn.btn-outline-danger.btn-sm.mx-2(href=`/admin/deleteProduct?id=${product._id}&&name=${product.name}`) Delete
+  else 
+    h1 No Product
+
