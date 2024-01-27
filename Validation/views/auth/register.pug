@@ -1,0 +1,28 @@
+extends ../layouts/main
+
+block contents
+    .container 
+      .row
+        .col-2 
+        .col-8.mx-3.my-4
+          if result === 'success'
+            p.alert.alert-success The success!
+          if error
+            p.alert.alert-danger #{error}  
+          form(action="/auth/register" method="POST")
+            input(type="hidden" name="_csrf" value=`${csrfToken}`)
+            .form-group.row.mb-3
+              label.col-sm-2.col-form-label(for="name") Name
+              .col-sm-10
+                input#nameRegister.form-control(type="text" name="name")
+            .form-group.row.mb-3
+              label.col-sm-2.col-form-label(for="email") Email
+              .col-sm-10
+                input#emailRegister.form-control(type="text" name="email")
+            .form-group.row.mb-3
+              label.col-sm-2.col-form-label(for="password") Password
+              .col-sm-10
+                input#passwordRegister.form-control(type="password" name="password")
+            .form-group.row.mb-3.offset-sm-2
+                input.btn.btn-outline-danger.my-2(type="submit" value="Register")
+                a.btn.btn-outline-success(href="/auth/login") Login

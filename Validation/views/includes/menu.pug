@@ -1,0 +1,7 @@
+.list-group
+    if categories.length > 0
+        each category in categories
+            if category.id === Number(selectedCategoryId) 
+                a.text-center.list-group-item.active(href="/category/"+category._id)  #{category.name}
+            else  
+                a.text-center.list-group-item(href="/category/"+category._id)  #{category.name}
