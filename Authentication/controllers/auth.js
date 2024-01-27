@@ -62,7 +62,9 @@ const postReset = async (req, res, next) => {
   await User.updateOne({_id: user._id}, {$set: {token, tokenExpire}} );
   res.redirect("/auth/login");
   sendMail(req.body.email, "lyofficialtr@gmail.com", "user password reset"
-      , `<h1>Click on the link <a href="http://10.100.100.100:5002/auth/passwordReset/${token}">Reset Password</a> to reset password!!!</h1>`);
+      , `<h1>Click on the link 
+      <a href="${process.env.HOST}/auth/passwordReset/${token}">
+      Reset Password</a> to reset password!!!</h1>`);
 };
 
 const getPasswordReset = async (req, res, next) => {
