@@ -1,0 +1,22 @@
+extends ../layouts/main
+
+block contents
+    .container 
+      .row
+        .col-2 
+        .col-8.mx-3.my-4
+          if result === 'success'
+            p.alert.alert-success The success!
+          if result === 'noEmail'
+            p.alert.alert-danger The email does not exist!
+          if result === 'invalidToken'
+            p.alert.alert-danger The token is invalid!
+          form(action="/auth/reset" method="POST")
+            input(type="hidden" name="_csrf" value=`${csrfToken}`)
+            .form-group.row.mb-3
+              label.col-sm-2.col-form-label(for="email") Email
+              .col-sm-10
+                input#emailReset.form-control(type="text" name="email")
+            .form-group.row.mb-3.offset-sm-2
+                input.btn.btn-outline-danger.my-2(type="submit" value="Reset Password")
+                a.btn.btn-outline-success(href="/auth/login") Login

@@ -1,0 +1,39 @@
+extends ../layouts/main.pug
+
+block contents
+  if result === 'success'
+    div.alert.alert-success The new item was added!
+  if result === 'delete'
+    div.alert.alert-danger The item was deleted!
+  if products.length > 0
+    table.table.table-bordered.mx-4.my-4.pr-4
+      thead 
+        tr
+          th Image
+          th Name
+          th Description
+          th Quantity 
+          th 
+      tbody
+        each product in products
+          tr
+            td
+              img(src=`/img/${product.image}` width="80px" height="100px") 
+            td #{product.name} 
+            td #{product.description}
+            td #{product.quantity}
+            td
+              a.btn.btn-outline-danger.btn-sm.mx-2(href=`/deleteCartItem?id=${product._id}`) Delete
+      tfoot 
+            td 
+            td 
+            td 
+            td
+                Total Price =  #{total}
+            td 
+
+    a.btn.btn-outline-secondary.btn-sm.mx-2(href=`/createOrder`) Complete Order
+
+  else 
+    h1 No Product
+
